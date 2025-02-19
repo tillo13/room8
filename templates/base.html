@@ -5,28 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Room8</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <style>
-    /* Remove underline from navbar links */
-    nav ul.nav-links li a {
-      text-decoration: none;
-    }
-  </style>
 </head>
 <body>
   <!-- Fixed Navbar -->
   <header>
     <nav>
-      <div class="logo">
-        <a href="/">Room8</a>
+      <!-- Left side navigation links -->
+      <div class="nav-left">
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/mission">Mission</a></li>
+          <li><a href="/how_it_works">How It Works</a></li>
+          <li><a href="/find_room8">Find a Room8</a></li>
+        </ul>
       </div>
-      <!-- Updated navigation menu: Removed "Room8 Culture" and "Find a Roommate" -->
-      <ul class="nav-links">
-        <li><a href="/">Mission</a></li>
-        <li><a href="/how-it-works">How It Works</a></li>
-      </ul>
-      <!-- Join Room8 button remains the same -->
-      <div class="download">
-        <a href="/signup">Signup</a>
+      <!-- Right side Login button -->
+      <div class="nav-right">
+        <a href="/login" class="signup-button">Login</a>
       </div>
     </nav>
   </header>
