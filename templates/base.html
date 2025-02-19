@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Room8</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    /* Remove underline from navbar links */
+    nav ul.nav-links li a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Fixed Navbar -->
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="/">Room8</a>
+      </div>
+      <!-- Updated navigation menu: Removed "Room8 Culture" and "Find a Roommate" -->
+      <ul class="nav-links">
+        <li><a href="/">Mission</a></li>
+        <li><a href="/how-it-works">How It Works</a></li>
+      </ul>
+      <!-- Join Room8 button remains the same -->
+      <div class="download">
+        <a href="/signup">Signup</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main content injected from child templates -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Room8. Making homes through meaningful connections.</p>
+    </div>
+  </footer>
+</body>
+</html>
