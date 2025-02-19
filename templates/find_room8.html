@@ -4,47 +4,110 @@
   <main>
     <h1>Find a Room8!</h1>
     <form id="room8Form" action="/find_room8" method="post">
-      <div class="form-group">
-        <label for="question1">1. What is your ideal living space?</label>
-        <textarea id="question1" name="question1" rows="3" class="form-textarea"></textarea>
+      <div>
+        <label for="question1">1. What type of living space do you prefer?</label>
+        <select id="question1" name="question1">
+          <option value="">Select an option</option>
+          <option value="studio">Studio Apartment</option>
+          <option value="1_bed">1 Bedroom</option>
+          <option value="2_bed">2+ Bedrooms</option>
+          <option value="shared_house">Shared House</option>
+        </select>
       </div>
-      <div class="form-group">
-        <label for="question2">2. How often do you prefer to clean or tidy up?</label>
-        <textarea id="question2" name="question2" rows="3" class="form-textarea"></textarea>
+      <br>
+      <div>
+        <label for="question2">2. How often do you clean or tidy up?</label>
+        <select id="question2" name="question2">
+          <option value="">Select an option</option>
+          <option value="daily">Daily</option>
+          <option value="few_times">A few times a week</option>
+          <option value="weekly">Weekly</option>
+          <option value="rarely">Rarely</option>
+        </select>
       </div>
-      <div class="form-group">
-        <label for="question3">3. How do you usually share or manage household expenses?</label>
-        <textarea id="question3" name="question3" rows="3" class="form-textarea"></textarea>
+      <br>
+      <div>
+        <label for="question3">3. How would you prefer to manage household expenses?</label>
+        <select id="question3" name="question3">
+          <option value="">Select an option</option>
+          <option value="split">Split evenly</option>
+          <option value="income_based">Based on income</option>
+          <option value="mixed">Mixed approach</option>
+        </select>
       </div>
-      <div class="form-group">
-        <label for="question4">4. Do you have any dietary restrictions or preferences?</label>
-        <textarea id="question4" name="question4" rows="3" class="form-textarea"></textarea>
+      <br>
+      <div>
+        <label for="question4">4. Do you have any dietary preferences or restrictions?</label>
+        <select id="question4" name="question4">
+          <option value="">Select an option</option>
+          <option value="none">None</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="vegan">Vegan</option>
+          <option value="gluten_free">Gluten-Free</option>
+          <option value="other">Other</option>
+        </select>
       </div>
-      <div class="form-group">
-        <label for="question5">5. How important is social interaction to you at home?</label>
-        <textarea id="question5" name="question5" rows="3" class="form-textarea"></textarea>
+      <br>
+      <div>
+        <label for="question5">5. How important is social interaction at home?</label>
+        <select id="question5" name="question5">
+          <option value="">Select an option</option>
+          <option value="very_important">Very Important</option>
+          <option value="somewhat">Somewhat Important</option>
+          <option value="not_important">Not Important</option>
+        </select>
       </div>
-      <div class="form-group">
-        <label for="question6">6. How do you prefer to manage noise and quiet time?</label>
-        <textarea id="question6" name="question6" rows="3" class="form-textarea"></textarea>
+      <br>
+      <div>
+        <label for="question6">6. What is your preference for noise and quiet time?</label>
+        <select id="question6" name="question6">
+          <option value="">Select an option</option>
+          <option value="quiet">Quiet</option>
+          <option value="moderate">Moderate</option>
+          <option value="lively">Lively</option>
+        </select>
       </div>
-      <div class="form-group">
-        <label for="question7">7. What is your typical bedtime or schedule like?</label>
-        <textarea id="question7" name="question7" rows="3" class="form-textarea"></textarea>
+      <br>
+      <div>
+        <label for="question7">7. What is your typical schedule/bedtime?</label>
+        <select id="question7" name="question7">
+          <option value="">Select an option</option>
+          <option value="early_bird">Early Bird</option>
+          <option value="night_owl">Night Owl</option>
+          <option value="variable">Variable</option>
+        </select>
       </div>
-      <div class="form-group">
+      <br>
+      <div>
         <label for="question8">8. How do you feel about hosting guests or parties?</label>
-        <textarea id="question8" name="question8" rows="3" class="form-textarea"></textarea>
+        <select id="question8" name="question8">
+          <option value="">Select an option</option>
+          <option value="love_them">I love hosting</option>
+          <option value="occasionally">Occasionally</option>
+          <option value="prefer_no">Prefer not to host</option>
+        </select>
       </div>
-      <div class="form-group">
-        <label for="question9">9. What hobbies or interests would you like to share with your roommate?</label>
-        <textarea id="question9" name="question9" rows="3" class="form-textarea"></textarea>
+      <br>
+      <div>
+        <label for="question9">9. Which hobbies or interests do you enjoy?</label>
+        <select id="question9" name="question9">
+          <option value="">Select an option</option>
+          <option value="sports">Sports</option>
+          <option value="arts">Arts & Culture</option>
+          <option value="tech">Technology</option>
+          <option value="outdoors">Outdoors</option>
+          <option value="reading">Reading</option>
+          <option value="gaming">Gaming</option>
+          <option value="other">Other</option>
+        </select>
       </div>
-      <div class="form-group">
-        <label for="question10">10. Are there any other considerations for your ideal roommate match?</label>
-        <textarea id="question10" name="question10" rows="3" class="form-textarea"></textarea>
+      <br>
+      <div>
+        <label for="question10">10. Anything else we need to know about your living preferences?</label>
+        <textarea id="question10" name="question10" rows="3" placeholder="Share any additional info..."></textarea>
       </div>
-      <button type="submit" class="submit-button">Submit Answers</button>
+      <br>
+      <button type="submit">Submit Answers</button>
     </form>
     <!-- Toast container for notification -->
     <div id="toast">we'll get back to you shortly!</div>
@@ -54,11 +117,11 @@
   <script>
     document.getElementById("room8Form").addEventListener("submit", function(event) {
       event.preventDefault();
-      // Show the toast popup
       var toast = document.getElementById("toast");
       toast.className = "show";
-      // Hide the toast after 3 seconds
-      setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+      setTimeout(function() {
+        toast.className = toast.className.replace("show", "");
+      }, 3000);
     });
   </script>
 {% endblock %}

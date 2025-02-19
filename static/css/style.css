@@ -1,4 +1,6 @@
-/* Reset and basic styles */
+/* -------------------------------------------------------------------
+   RESET AND BASIC STYLES
+------------------------------------------------------------------- */
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +14,9 @@ body {
   line-height: 1.6;
 }
 
-/* Accessibility */
+/* -------------------------------------------------------------------
+   ACCESSIBILITY
+------------------------------------------------------------------- */
 .skip-link {
   position: absolute;
   top: -40px;
@@ -27,7 +31,9 @@ body {
   top: 0;
 }
 
-/* Header & Navigation */
+/* -------------------------------------------------------------------
+   HEADER & NAVIGATION
+------------------------------------------------------------------- */
 header {
   position: fixed;
   top: 0;
@@ -70,7 +76,7 @@ nav {
   border-radius: 5px;
 }
 
-/* Right navigation group (Signup button) */
+/* Right navigation group (Signup/Login button) */
 .nav-right {
   display: flex;
   align-items: center;
@@ -88,12 +94,17 @@ nav {
   background-color: #6931af;
 }
 
-/* Main content spacing to clear fixed header */
+/* -------------------------------------------------------------------
+   MAIN CONTENT
+   (Adds top padding to clear the fixed header)
+------------------------------------------------------------------- */
 main {
   padding-top: 80px;
 }
 
-/* Hero Section */
+/* -------------------------------------------------------------------
+   HERO SECTION
+------------------------------------------------------------------- */
 .hero {
   position: relative;
   height: 100vh;
@@ -127,7 +138,9 @@ main {
   margin-bottom: 30px;
 }
 
-/* Section Base */
+/* -------------------------------------------------------------------
+   SECTION BASE STYLES
+------------------------------------------------------------------- */
 section {
   padding: 60px 20px;
   text-align: center;
@@ -138,7 +151,7 @@ section h2 {
   color: #7b2cbf;
 }
 
-/* Specific Sections */
+/* Specific content sections */
 .approach-section,
 .how-section,
 .labs-section,
@@ -156,7 +169,9 @@ section h2 {
   color: #333;
 }
 
-/* Testimonials */
+/* -------------------------------------------------------------------
+   TESTIMONIALS
+------------------------------------------------------------------- */
 .testimonials-content {
   max-width: 900px;
   margin: 0 auto;
@@ -179,7 +194,9 @@ section h2 {
   color: #111;
 }
 
-/* CTA Button */
+/* -------------------------------------------------------------------
+   CALL TO ACTION (CTA) BUTTON
+------------------------------------------------------------------- */
 .cta-button {
   display: inline-block;
   background-color: #7b2cbf;
@@ -194,7 +211,9 @@ section h2 {
   background-color: #6931af;
 }
 
-/* Footer */
+/* -------------------------------------------------------------------
+   FOOTER
+------------------------------------------------------------------- */
 footer {
   background: #f5f5f5;
   padding: 30px 20px;
@@ -222,12 +241,11 @@ footer {
   color: #7b2cbf;
 }
 
+/* -------------------------------------------------------------------
+   FORM & TOAST STYLES
+------------------------------------------------------------------- */
 
-/* ------------------------------------------------------------------- */
-/* New Form and Toast Styles added below without altering existing CSS */
-/* ------------------------------------------------------------------- */
-
-/* Form Styles */
+/* Form Group and Textarea Styles */
 .form-group {
   margin-bottom: 20px;
   max-width: 600px;
@@ -268,7 +286,7 @@ footer {
 
 /* Toast Styles */
 #toast {
-  visibility: hidden;
+  visibility: hidden;             /* Hidden by default */
   min-width: 250px;
   margin: auto;
   background-color: #333;
