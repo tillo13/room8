@@ -1,74 +1,64 @@
 {% extends "base.html" %}
 
 {% block content %}
-<main>
-  <h1>Find a Room8!</h1>
-  <form id="room8Form" action="/find_room8" method="post">
-    <div class="question">
-      <label for="question1">1. What is your ideal living space?</label>
-      <textarea id="question1" name="question1" rows="3"></textarea>
-    </div>
+  <main>
+    <h1>Find a Room8!</h1>
+    <form id="room8Form" action="/find_room8" method="post">
+      <div class="form-group">
+        <label for="question1">1. What is your ideal living space?</label>
+        <textarea id="question1" name="question1" rows="3" class="form-textarea"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="question2">2. How often do you prefer to clean or tidy up?</label>
+        <textarea id="question2" name="question2" rows="3" class="form-textarea"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="question3">3. How do you usually share or manage household expenses?</label>
+        <textarea id="question3" name="question3" rows="3" class="form-textarea"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="question4">4. Do you have any dietary restrictions or preferences?</label>
+        <textarea id="question4" name="question4" rows="3" class="form-textarea"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="question5">5. How important is social interaction to you at home?</label>
+        <textarea id="question5" name="question5" rows="3" class="form-textarea"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="question6">6. How do you prefer to manage noise and quiet time?</label>
+        <textarea id="question6" name="question6" rows="3" class="form-textarea"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="question7">7. What is your typical bedtime or schedule like?</label>
+        <textarea id="question7" name="question7" rows="3" class="form-textarea"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="question8">8. How do you feel about hosting guests or parties?</label>
+        <textarea id="question8" name="question8" rows="3" class="form-textarea"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="question9">9. What hobbies or interests would you like to share with your roommate?</label>
+        <textarea id="question9" name="question9" rows="3" class="form-textarea"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="question10">10. Are there any other considerations for your ideal roommate match?</label>
+        <textarea id="question10" name="question10" rows="3" class="form-textarea"></textarea>
+      </div>
+      <button type="submit" class="submit-button">Submit Answers</button>
+    </form>
+    <!-- Toast container for notification -->
+    <div id="toast">we'll get back to you shortly!</div>
+  </main>
 
-    <div class="question">
-      <label for="question2">2. How often do you prefer to clean or tidy up?</label>
-      <textarea id="question2" name="question2" rows="3"></textarea>
-    </div>
-
-    <div class="question">
-      <label for="question3">3. How do you usually share or manage household expenses?</label>
-      <textarea id="question3" name="question3" rows="3"></textarea>
-    </div>
-
-    <div class="question">
-      <label for="question4">4. Do you have any dietary restrictions or preferences?</label>
-      <textarea id="question4" name="question4" rows="3"></textarea>
-    </div>
-
-    <div class="question">
-      <label for="question5">5. How important is social interaction to you at home?</label>
-      <textarea id="question5" name="question5" rows="3"></textarea>
-    </div>
-
-    <div class="question">
-      <label for="question6">6. How do you prefer to manage noise and quiet time?</label>
-      <textarea id="question6" name="question6" rows="3"></textarea>
-    </div>
-
-    <div class="question">
-      <label for="question7">7. What is your typical bedtime or schedule like?</label>
-      <textarea id="question7" name="question7" rows="3"></textarea>
-    </div>
-
-    <div class="question">
-      <label for="question8">8. How do you feel about hosting guests or parties?</label>
-      <textarea id="question8" name="question8" rows="3"></textarea>
-    </div>
-
-    <div class="question">
-      <label for="question9">9. What hobbies or interests would you like to share with your roommate?</label>
-      <textarea id="question9" name="question9" rows="3"></textarea>
-    </div>
-
-    <div class="question">
-      <label for="question10">10. Are there any other considerations for your ideal roommate match?</label>
-      <textarea id="question10" name="question10" rows="3"></textarea>
-    </div>
-
-    <br>
-    <button type="submit">Submit Answers</button>
-  </form>
-
-  <!-- Toast container for notification -->
-  <div id="toast">we'll get back to you shortly!</div>
-</main>
-
-<!-- Inline JavaScript to handle submit and display toast -->
-<script>
-  document.getElementById("room8Form").addEventListener("submit", function(event) {
-    event.preventDefault();
-    var toast = document.getElementById("toast");
-    toast.className = "show";
-    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
-  });
-</script>
+  <!-- Inline JavaScript to handle submit and display toast -->
+  <script>
+    document.getElementById("room8Form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      // Show the toast popup
+      var toast = document.getElementById("toast");
+      toast.className = "show";
+      // Hide the toast after 3 seconds
+      setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+    });
+  </script>
 {% endblock %}
