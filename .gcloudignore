@@ -17,3 +17,15 @@
 __pycache__/
 # Ignored by the build system
 /setup.cfg
+
+# Ignore environment files
+.env
+
+/tmp
+/archive_versions
+
+#json_keys
+/json_keys
+
+# Deployment script
+gcloud_deploy.py
