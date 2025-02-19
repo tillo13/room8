@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 This script deploys the Room8 app to Google Cloud App Engine.
-It also checks your current versions and deletes any older versions if the limit is exceeded.
+It also checks current versions and deletes any older versions if necessary.
 """
 
 import subprocess
@@ -14,7 +14,7 @@ import string
 
 # Configuration variables for Room8
 VERSION_MAX = 15  # Maximum versions to keep
-PROJECT_ID = "room8-oly"  # Your new Google Cloud project ID for Room8
+PROJECT_ID = "room8-oly"  # Your Google Cloud project ID for Room8
 DEFAULT_SERVICE_NAME = "default"  # Usually the default App Engine service
 
 print(f"You have chosen to keep a maximum of {VERSION_MAX} versions of your app.")
@@ -37,7 +37,7 @@ def get_versions(service_name):
         versions.sort(key=lambda x: x["version"]["createTime"], reverse=True)
         return versions
     except subprocess.CalledProcessError as e:
-        stderr = e.stderr.decode()
+        stderr = e.stderr.decode() if e.stderr else ""
         if "Service not found" in stderr:
             print(f"Service {service_name} not found. It will be created during deployment.")
             return []
@@ -114,12 +114,15 @@ def deploy_service(service_name, yaml_path):
                 "--project", PROJECT_ID,
                 "--version", version_name
             ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
             check=True
         )
         print(f"Deployment successful for service {service_name}.")
     except subprocess.CalledProcessError as e:
+        err_str = e.stderr.decode() if e.stderr else str(e)
         print("Failed to deploy new version. Error:")
-        print(e.stderr.decode())
+        print(err_str)
         sys.exit(1)
     
     # Delete older versions if necessary
