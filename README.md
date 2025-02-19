@@ -82,10 +82,8 @@ Lists files and directories that should be ignored during the deployment process
 how_we_build.md
 A document detailing the entire build and deployment process. It includes steps for setting up the project, creating configurations, and attaching billing, as well as any additional changes (such as configuration and permission updates).
 
-README.md
-This file. It provides an overview of the repository, details on each file, setup and deployment instructions, and other documentation useful for developers and deployment operators.
+## Setup and Deployment
 
-Setup and Deployment
 Setup
 Clone the Repository:
 
@@ -102,7 +100,8 @@ source venv/bin/activate
 Install required packages:
 
 pip install -r requirements.txt
-Google Cloud Project Setup:
+
+## Google Cloud Project Setup:
 
 Ensure you have the Google Cloud SDK installed.
 Run gcloud init to create a new configuration for Room8, select your account, and create a new project (e.g., room8-oly).
