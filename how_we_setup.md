@@ -254,3 +254,30 @@ https://room8-oly.uc.r.appspot.com
 8. Verify Your Deployment
 Open your web browser and navigate to the URL provided in the output (for example, https://room8-oly.uc.r.appspot.com). You should see your Room8 app running live.
 ```
+
+Additional Changes
+Updated app.yaml
+Due to the end-of-support status of Python 3.8 on App Engine, we have updated our app.yaml file to use a supported runtime. The new configuration is as follows:
+
+runtime: python39
+entrypoint: gunicorn -b :$PORT app:app --timeout 120
+
+handlers:
+
+- url: /static
+  static_dir: static
+  secure: always
+  expiration: "30d"
+
+- url: /.\*
+  script: auto
+  secure: always
+  Permissions Update
+  During deployment, an error was encountered because the service account did not have the required access to the staging bucket used by Cloud Build. To address this issue, we granted the necessary permissions to the service account.
+
+The following command was executed to attach the Storage Admin role to the service account room8-oly@appspot.gserviceaccount.com:
+
+gcloud projects add-iam-policy-binding room8-oly \
+ --member="serviceAccount:room8-oly@appspot.gserviceaccount.com" \
+ --role="roles/storage.admin"
+This update ensures that the service account now has the proper access to manage Cloud Build operations, including creating and accessing the staging bucket.
