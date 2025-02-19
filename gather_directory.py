@@ -1,23 +1,24 @@
 import os
 from datetime import datetime
 
-# Boolean flags to control whether to include HTML, JS, and CSS files
+# Boolean flags to control whether to include HTML, JS, CSS, and Markdown files
 INCLUDE_HTML = True
 INCLUDE_JS = True
 INCLUDE_CSS = True
+INCLUDE_MD = True
 
 # Global variable to define directories to exclude from scanning
 # Note: "directory_printouts" is added so that the generated file doesn’t get scanned.
-DIRECTORIES_TO_EXCLUDE = [".git", "directory_printouts", "VERSIONS", "__pycache__",  "othersecretefolder"]
+DIRECTORIES_TO_EXCLUDE = [".git", "directory_printouts", "VERSIONS", "__pycache__", "othersecretefolder"]
 
 # Global variable to define directories to completely exclude from the final output file
 DIRECTORIES_MAP_TO_EXCLUDE = [".git", "directory_printouts", "VERSIONS", "__pycache__"]
 
-def gather_files(root_dir, directories_to_exclude, directories_map_to_exclude, include_html, include_js, include_css):
+def gather_files(root_dir, directories_to_exclude, directories_map_to_exclude, include_html, include_js, include_css, include_md):
     """
-    Gathers all .py files (and optionally .html, .js, and .css files) within the specified root directory
+    Gathers all .py files (and optionally .html, .js, .css, and .md files) within the specified root directory
     and its subdirectories, excluding specified directories and ignoring the gather_pythons.py file.
-    
+
     Parameters:
         root_dir (str): The root directory to search for files.
         directories_to_exclude (list): Directory names to exclude from scanning.
@@ -25,6 +26,7 @@ def gather_files(root_dir, directories_to_exclude, directories_map_to_exclude, i
         include_html (bool): Whether to include HTML files.
         include_js (bool): Whether to include JS files.
         include_css (bool): Whether to include CSS files.
+        include_md (bool): Whether to include Markdown files.
     
     Returns:
         tuple: (files, directories, excluded_directories)
@@ -50,12 +52,13 @@ def gather_files(root_dir, directories_to_exclude, directories_map_to_exclude, i
             # Skip the script file itself
             if filename == "gather_pythons.py":
                 continue
-            
-            # Check file extension and add file if it matches the criteria.
-            if filename.endswith('.py') \
-               or (include_html and filename.endswith('.html')) \
-               or (include_js and filename.endswith('.js')) \
-               or (include_css and filename.endswith('.css')):
+
+            # Check file extension and add the file if it matches the criteria.
+            if (filename.endswith('.py') or 
+                (include_html and filename.endswith('.html')) or 
+                (include_js and filename.endswith('.js')) or 
+                (include_css and filename.endswith('.css')) or 
+                (include_md and filename.endswith('.md'))):
                 filepath = os.path.join(dirpath, filename)
                 try:
                     with open(filepath, 'r', encoding='utf-8') as file:
@@ -72,7 +75,7 @@ def write_to_file(output_filepath, data, directories, excluded_directories, dire
     """
     Writes the gathered data to a file with counts of files and directories,
     the directory structure, followed by a list of all file paths and their contents.
-    
+
     Parameters:
         output_filepath (str): Path of the file where data will be written.
         data (list): List of tuples (filepath, file_content).
@@ -105,7 +108,7 @@ def write_to_file(output_filepath, data, directories, excluded_directories, dire
 
 def main():
     root_dir = "."  # Change this if needed; by default, it uses the current directory.
-    
+
     # Ensure the output directory exists.
     output_dir = "directory_printouts"
     os.makedirs(output_dir, exist_ok=True)
@@ -121,7 +124,8 @@ def main():
         DIRECTORIES_MAP_TO_EXCLUDE,
         INCLUDE_HTML,
         INCLUDE_JS,
-        INCLUDE_CSS
+        INCLUDE_CSS,
+        INCLUDE_MD  # Pass the Markdown inclusion flag
     )
     
     # Write the results to the output file.

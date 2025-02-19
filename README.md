@@ -1,6 +1,6 @@
 # Room8
 
-Welcome to the Room8 repository! This repository contains the source code for the Room8 Flask web application along with all the scripts and configuration files needed to deploy the app to Google Cloud App Engine. This document will explain the purpose of each file and provide setup, deployment, and maintenance instructions for novice users.
+Welcome to the Room8 repository! This repository contains the source code for the Room8 Flask web application along with scripts and configuration files for deploying the app to Google Cloud App Engine. This document explains the purpose of each file and provides setup, deployment, and maintenance instructions (designed for novice users).
 
 ---
 
@@ -12,8 +12,8 @@ Welcome to the Room8 repository! This repository contains the source code for th
   - [Application Files](#application-files)
   - [Deployment Files](#deployment-files)
   - [Utility and Documentation Files](#utility-and-documentation-files)
+- [New Features](#new-features)
 - [Setup and Deployment](#setup-and-deployment)
-- [Additional Changes](#additional-changes)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 - [License](#license)
@@ -22,14 +22,13 @@ Welcome to the Room8 repository! This repository contains the source code for th
 
 ## Overview
 
-Room8 is a Flask-based web application that serves as a demonstration project for deploying a Python web application to Google Cloud App Engine. This repository contains all the necessary files to build, deploy, and maintain the application. We also integrate GitHub for version control, and our deployment process is automated with helper scripts.
+Room8 is a Flask-based web application designed to help users find the ideal roommate while also demonstrating automated deployment to Google Cloud App Engine. The repository now includes new routes and templates (such as a login page and a more detailed roommate finder) plus utility scripts for deployment and project maintenance.
 
 ---
 
 ## Repository Structure
 
-Below is a quick summary of the repository structure:
-room8/ ├── app.py # Main Flask application ├── app.yaml # App Engine configuration file ├── requirements.txt # Python dependencies list ├── templates/ │ ├── base.html # Base HTML template for consistent layout │ └── home.html # Home page extending base.html ├── static/ │ └── css/ │ └── style.css # Basic CSS styles for the application ├── git_push.sh # Shell script to commit/push code and deploy using gcloud_deploy.py ├── gcloud_deploy.py # Python script to deploy the app to Google Cloud App Engine and manage versions ├── .gcloudignore # File to specify files to ignore for deployment ├── how_we_build.md # A guide documenting the build and deployment process (see Additional Changes section for updates) └── README.md # This detailed documentation file
+room8/ ├── app.py # Main Flask application, now includes routes for home, find_room8, mission, how_it_works, and login ├── app.yaml # App Engine configuration file ├── requirements.txt # Python dependencies list ├── static/ │ └── css/ │ └── style.css # CSS styles for the application ├── templates/ │ ├── base.html # Base HTML template for a consistent layout │ ├── home.html # Home page template │ ├── find_room8.html # New page for the Room8 finder function │ ├── mission.html # Page detailing the mission of Room8 │ ├── how_it_works.html # Explains how the Room8 app works │ └── login.html # New login page template for user authentication ├── utilities/ │ └── gmail_utils.py # Utility script for sending emails and managing Gmail interactions ├── gather_directory.py # Utility script to scan and gather file details in the project ├── gcloud_deploy.py # Script to deploy the app to Google Cloud App Engine and manage versions ├── how_we_setup.md # How-to guide for setting up and deploying the Room8 app └── README.md # This documentation file
 
 ---
 
@@ -38,101 +37,136 @@ room8/ ├── app.py # Main Flask application ├── app.yaml # App Engine
 ### Application Files
 
 - **`app.py`**  
-  The main Flask application file. This file imports Flask, sets up route handlers, and runs the application. It renders templates stored in the `templates/` folder.
+  Contains the main Flask application. It sets up the following routes:
 
-- **`templates/base.html` & `templates/home.html`**  
-  The HTML templates for the app.
+  - `/` (Home): Renders the home page (`home.html`).
+  - `/find_room8`: A form page where users can answer questions to find a compatible roommate.
+  - `/mission`: A page explaining the app’s mission.
+  - `/how_it_works`: Details how the application’s matching process works.
+  - `/login`: A new login page that, once extended, will process user credentials.
 
-  - `base.html` defines the common structure (header, footer, etc.).
-  - `home.html` extends `base.html` and includes custom content for the home page.
+- **Templates (`templates/` folder)**
 
-- **`static/css/style.css`**  
-  Contains the CSS styles that control the look and feel of the application.
+  - **`base.html`**  
+    The layout template that includes a fixed navbar (with links to Home, Mission, How It Works, Find a Room8, and Login) and a footer.
+  - **`home.html`**  
+    Extends `base.html` to display the home page content.
+  - **`find_room8.html`**  
+    A page that includes a form with questions to help find the ideal roommate.
+  - **`mission.html`**  
+    Explains the mission and core values behind Room8.
+  - **`how_it_works.html`**  
+    Provides a step-by-step explanation of the matching process.
+  - **`login.html`**  
+    A new page for logging in. Currently, it displays a simple form and a toast notification on submission.
+
+- **Static Files**
+  - **`static/css/style.css`**  
+    Contains CSS reset rules and styles for layout, typography, and UI elements such as the navbar, hero section, buttons, and footer.
 
 ### Deployment Files
 
 - **`app.yaml`**  
-  The configuration file for Google App Engine. This file defines:
+  The configuration file for Google App Engine. It defines:
 
-  - The Python runtime (currently using `python39`)
-  - The entrypoint (to run the app with Gunicorn)
-  - Handlers (rules for serving static content and routing requests)
+  - The supported Python runtime (python39)
+  - The entry point used by Gunicorn to serve the app
+  - Handlers for serving static content and routing all other URLs to the application.
 
 - **`requirements.txt`**  
-  Lists all the Python packages needed to run the application. This ensures that when the app is deployed, all dependencies are installed.
+  Lists all Python dependencies. This ensures the correct packages are installed during deployment.
+
+- **`gcloud_deploy.py`**  
+  A Python script that:
+  - Checks the current Google Cloud project.
+  - Retrieves and manages App Engine versions.
+  - Deploys the app using a unique version and, if necessary, deletes older versions.
 
 ### Utility and Documentation Files
 
-- **`git_push.sh`**  
-   A shell script that automates the process of adding code changes to Git, committing them with a message, pushing them to GitHub, and then deploying the updated version to Google Cloud App Engine.  
-   _Usage:_
-  ```sh
-  ./git_push.sh "your commit message"
-  gcloud_deploy.py
-  A Python script that:
-  ```
+- **`utilities/gmail_utils.py`**  
+  Provides functions for sending plain text and HTML emails, creating sample files, replying to emails, and reading emails from Gmail. It uses environment variables for Gmail credentials.
 
-Deploys the Room8 application using Google Cloud SDK
-Generates a unique version name for the deployment
-Manages old versions (deleting them when there are more than a set limit)
-This script is called by git_push.sh after pushing your changes.
-.gcloudignore
-Lists files and directories that should be ignored during the deployment process to keep the deployment package lean.
+- **`gather_directory.py`**  
+  Scans the entire project directory (excluding certain folders) and gathers a list of files and directories. The result is written to a timestamped file for maintenance or review purposes.
 
-how_we_build.md
-A document detailing the entire build and deployment process. It includes steps for setting up the project, creating configurations, and attaching billing, as well as any additional changes (such as configuration and permission updates).
+- **`how_we_setup.md`**  
+  A detailed guide on creating a GitHub repository, setting up local development, configuring Google Cloud, and deploying the Room8 app.
+
+---
+
+## New Features
+
+- **Login Functionality:**  
+  A new `/login` route and corresponding template have been added. While the back-end processing (such as verifying user credentials) is not yet fully implemented, the login page provides a user interface for future authentication functionality.
+
+- **Additional Templates:**  
+  Besides the standard home page, new pages such as `find_room8.html`, `mission.html`, `how_it_works.html`, and `login.html` have been added to provide a richer and more comprehensive user experience.
+
+- **Utility for Directory Gathering:**  
+  The script `gather_directory.py` now automates the process of gathering all relevant files and directories (excluding common ignored folders). This is useful for creating documentation or maintenance reports.
+
+- **Enhanced Deployment Script:**  
+  The deployment script `gcloud_deploy.py` manages version control and deployment details including deleting older versions after a set limit is exceeded.
+
+---
 
 ## Setup and Deployment
 
-Setup
-Clone the Repository:
+1. **Clone the Repository:**
 
-If you haven’t already cloned the repository, run:
-
-git clone https://github.com/yourusername/room8.git
-cd room8
-Create a Virtual Environment & Install Dependencies:
-
-Create and activate a virtual environment (optional but recommended):
+   ```sh
+   git clone https://github.com/yourusername/room8.git
+   cd room8
+   Set Up Your Virtual Environment and Install Dependencies:
+   ```
 
 python3 -m venv venv
 source venv/bin/activate
-Install required packages:
-
 pip install -r requirements.txt
+Configure Google Cloud:
 
-## Google Cloud Project Setup:
+Install the Google Cloud SDK.
 
-Ensure you have the Google Cloud SDK installed.
-Run gcloud init to create a new configuration for Room8, select your account, and create a new project (e.g., room8-oly).
-Attach a billing account to your project in the Google Cloud Console.
+Run gcloud init and follow the prompts to set up your Google account and create a new project (e.g., room8-oly).
+
+Attach a billing account to your project via the Google Cloud Console.
+
 Create the App Engine application by running:
+
 gcloud app create
-Deployment
-To deploy the app:
+Deploy the Application:
 
-Make your code changes.
-Run the following command:
-./git_push.sh "your commit message"
-This script will:
-Commit and push your changes to GitHub.
-Invoke the deployment script to deploy the changes to Google Cloud App Engine.
-After deployment, check the output for the target URL (e.g., https://room8-oly.wm.r.appspot.com) and open it in your browser.
-Additional Changes
-Refer to the "Additional Changes" section at the bottom of the how_we_build.md file for updates related to app.yaml changes and permission updates.
+Run the deployment script by executing:
 
+python gcloud_deploy.py
+After deployment, note the printed target URL (for example, https://room8-oly.wm.r.appspot.com) and open it in your browser.
+
+Monitoring Logs:
+
+To tail live logs for troubleshooting or monitoring, run:
+
+gcloud app logs tail -s default
 Troubleshooting
 Deployment Issues:
-If deployment errors occur, review the error messages in your terminal. Common issues include missing permissions or configuration errors.
+Check your terminal output for error messages. Common problems include missing permissions or configuration issues with your Google Cloud project.
 
 Permissions:
-Ensure that the service account (room8-oly@appspot.gserviceaccount.com) has the required roles (e.g., Storage Admin) as described in the Deployment documentation.
+Ensure that the service account (e.g., room8-oly@appspot.gserviceaccount.com) has the required roles such as Storage Admin. For example, use:
 
-Log Viewing:
-Use gcloud app logs tail -s default to view live application logs for debugging.
+gcloud projects add-iam-policy-binding room8-oly \
+ --member="serviceAccount:room8-oly@appspot.gserviceaccount.com" \
+ --role="roles/storage.admin"
+Mail Sending Issues:
+If emails are not sent, double-check the environment variables set in your .env file for ROOM8_GMAIL_USERNAME and ROOM8_GMAIL_APP_PASSWORD.
 
 Contributing
-Contributions to this repository are welcome! Please fork the repository, make your changes, and open a pull request with a detailed description of your changes.
+Contributions are welcome! If you’d like to improve Room8, please follow these steps:
 
+Fork this repository.
+Create a new branch with your changes (git checkout -b feature/my-feature).
+Commit your changes (git commit -m "Add my feature").
+Push to your branch (git push origin feature/my-feature).
+Open a pull request with a clear description of your changes.
 License
-This project is licensed under the MIT License. Please see the LICENSE file for details.
+This project is licensed under the MIT License. See the LICENSE file for details.
